@@ -23,7 +23,7 @@ def get_filters():
             print('Invalid input for city. Please enter one of the options.')
         else:
             break
-            
+
     # TO DO: get user input for month (all, january, february, ... , june)
     while True:
         month = input('Which month? January, February, March, April, May, June, or all?\n').lower()
@@ -31,7 +31,7 @@ def get_filters():
             print('Invalid input for month. Please enter one of the options.')
         else:
             break
-            
+
     # TO DO: get user input for day of week (all, monday, tuesday, ... sunday)
     while True:
         day = input('Which day? Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday, or all?\n').lower()
@@ -55,26 +55,26 @@ def load_data(city, month, day):
     Returns:
         df - Pandas DataFrame containing city data filtered by month and day
     """
-    
+
     # Load data file into a dataframe
     df = pd.read_csv(CITY_DATA[city])
-    
+
     # Convert time in Start Time column to datetime
     df['Start Time'] = pd.to_datetime(df['Start Time'])
-    
+
     # Extract month and day of week from Start Time to create new columns
     df['month'] = df['Start Time'].dt.month
     df['day_of_week'] = df['Start Time'].dt.weekday_name
-    
+
     # Filter by month if applicable
     if month != 'all':
         # Use the index of the month list to get the corresponding int
         months = ['january', 'february', 'march', 'april', 'may', 'june']
         month = months.index(month) + 1
-        
+
         # Filter by month to create the new dataframe
         df = df[df['month'] == month]
-    
+
     # Filter by day of week if applicable
     if day != 'all':
         # Filter by day of week to create the new dataframe
@@ -110,9 +110,9 @@ def station_stats(df):
     start_time = time.time()
 
     # TO DO: display most commonly used start station
-    print('The most commonly used start station: ', df['Start Station'].mode()[0])  
+    print('The most commonly used start station: ', df['Start Station'].mode()[0])
 
-    # TO DO: display most commonly used end station  
+    # TO DO: display most commonly used end station
     print('\nThe most commonly used end station: ', df['End Station'].mode()[0])
 
     # TO DO: display most frequent combination of start station and end station trip
@@ -130,8 +130,6 @@ def trip_duration_stats(df):
 
     # TO DO: display total travel time
     # duration = df['Trip Duration'].sum().astype(int)
-    # print('Total travel time: ', time.strftime('%H:%M:%S', time.gmtime(duration)))
-    # print('delta: ', pd.Timedelta(df['Trip Duration'].sum().astype('int64'), unit='h'))
     print('Total travel time: ', df['Trip Duration'].sum(), 'seconds')
 
     # TO DO: display mean travel time
@@ -175,34 +173,34 @@ def raw_data(df):
     Asks user whether they want to see the raw data from the dataframe.
     Displays raw data from the dataframe, 5 rows at a time.
     """
-    
+
     # Ask whether the user wants to see the raw data
     ans = input('\nWould you like to see the raw data? Yes/No\n').lower()
     if ans not in ('yes', 'no'):
         print('Invalid answer.')
-    # If no, return None to get out of function  
-    elif ans == 'no':   
+    # If no, return None to get out of function
+    elif ans == 'no':
         return
     # If yes, display first 5 rows
     else:
         print('\nPrinting 5 rows of raw data...\n', df.head())
-    
+
     # Variable to count the next 5 row
-    n = 5          
+    n = 5
     # While loop to ask user for more raw data
     while True:
-        ans = input('Would you like to see more? Yes/No\n').lower()      
+        ans = input('Would you like to see more? Yes/No\n').lower()
         if ans not in ('yes', 'no'):
             print('Invalid answer.')
-        # If no, return None to get out of function    
-        elif ans == 'no':   
+        # If no, return None to get out of function
+        elif ans == 'no':
             return
         # If yes, display the next 5 rows
         else:
             print('\nPrinting 5 rows of raw data...\n', df.iloc[n :(n+5)])
-            n += 5      
-              
-              
+            n += 5
+
+
 def main():
     while True:
         city, month, day = get_filters()
@@ -212,7 +210,7 @@ def main():
         station_stats(df)
         trip_duration_stats(df)
         user_stats(df, city)
-        raw_data(df)          
+        raw_data(df)
 
         restart = input('\nWould you like to restart? Enter yes or no.\n')
         if restart.lower() != 'yes':
