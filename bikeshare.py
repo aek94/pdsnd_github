@@ -129,8 +129,8 @@ def trip_duration_stats(df):
     start_time = time.time()
 
     # TO DO: display total travel time
-    # duration = df['Trip Duration'].sum().astype(int)
-    print('Total travel time: ', df['Trip Duration'].sum(), 'seconds')
+    duration = df['Trip Duration'].sum().astype(int)
+    print('Total travel time: ', time_conversion(duration))
 
     # TO DO: display mean travel time
     mean = df['Trip Duration'].mean().astype(int)
@@ -199,6 +199,16 @@ def raw_data(df):
         else:
             print('\nPrinting 5 rows of raw data...\n', df.iloc[n :(n+5)])
             n += 5
+
+def time_conversion(time):
+    day = time // (24 * 3600)
+    time = time % (24 * 3600)
+    hour = time // 3600
+    time %= 3600
+    minutes = time // 60
+    time %= 60
+    seconds = time
+    return("{} day {} hour {} minutes {} seconds".format(day, hour, minutes, seconds))
 
 
 def main():
