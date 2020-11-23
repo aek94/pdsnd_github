@@ -14,5 +14,5 @@ Use Python to understand U.S. bikeshare data. Calculate statistics and build an 
 * washington.csv
 
 ### Credits
-* udacity/pdsnd_github
-https://github.com/udacity/pdsnd_github.git
+* README template https://github.com/udacity/pdsnd_github.git
+* Time conversion https://www.w3resource.com/python-exercises/python-basic-exercise-65.php
